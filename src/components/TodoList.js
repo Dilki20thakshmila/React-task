@@ -44,15 +44,26 @@ function TodoList() {
         }));
     };
 
+    const updateTask = (id, newText) => {
+        setTasks(tasks.map(task => {
+            if (task.id === id) {
+                return { ...task, text: newText };
+            } else {
+                return task;
+            }
+        }));
+    };
+
     return (
         <div className="centered-container">
             <div className="todo-list-container">
-                <h2>Todo List</h2>
+                <h2>My Todo List</h2>
                 <div className="add-task-container">
                     <input
                         value={text}
                         onChange={(e) => setText(e.target.value)}
                         placeholder="Add new task..."
+                        style={{ marginRight: '10px' }}
                     />
                     <button onClick={addTask}>Add</button>
                 </div>
@@ -63,6 +74,7 @@ function TodoList() {
                             task={task}
                             deleteTask={deleteTask}
                             toggleCompleted={toggleCompleted}
+                            updateTask={updateTask}
                         />
                     ))}
                 </div>
