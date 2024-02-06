@@ -1,5 +1,6 @@
-import React, { useState } from 'react'; // Import useState from react
-import TodoItem from './TodoItem'; // Import TodoItem component
+import React, { useState } from 'react';
+import TodoItem from './TodoItem';
+import '../App.css'; // Import the CSS file
 
 function TodoList() {
     const [tasks, setTasks] = useState([
@@ -17,21 +18,23 @@ function TodoList() {
 
     const [text, setText] = useState('');
 
-    function addTask(text) {
-        const newTask = {
-            id: Date.now(),
-            text,
-            completed: false
-        };
-        setTasks([...tasks, newTask]); // Remove whitespace after spread operator
-        setText('');
-    }
+    const addTask = () => {
+        if (text.trim() !== '') {
+            const newTask = {
+                id: Date.now(),
+                text,
+                completed: false
+            };
+            setTasks([...tasks, newTask]);
+            setText('');
+        }
+    };
 
-    function deleteTask(id) {
+    const deleteTask = (id) => {
         setTasks(tasks.filter(task => task.id !== id));
-    }
+    };
 
-    function toggleCompleted(id) {
+    const toggleCompleted = (id) => {
         setTasks(tasks.map(task => {
             if (task.id === id) {
                 return { ...task, completed: !task.completed };
@@ -39,23 +42,31 @@ function TodoList() {
                 return task;
             }
         }));
-    }
+    };
 
     return (
-        <div className="todo-list">
-            {tasks.map(task => (
-                <TodoItem
-                    key={task.id}
-                    task={task}
-                    deleteTask={deleteTask}
-                    toggleCompleted={toggleCompleted}
-                />
-            ))}
-            <input
-                value={text}
-                onChange={e => setText(e.target.value)}
-            />
-            <button onClick={() => addTask(text)}>Add</button>
+        <div className="centered-container">
+            <div className="todo-list-container">
+                <h2>Todo List</h2>
+                <div className="add-task-container">
+                    <input
+                        value={text}
+                        onChange={(e) => setText(e.target.value)}
+                        placeholder="Add new task..."
+                    />
+                    <button onClick={addTask}>Add</button>
+                </div>
+                <div className="tasks-container">
+                    {tasks.map(task => (
+                        <TodoItem
+                            key={task.id}
+                            task={task}
+                            deleteTask={deleteTask}
+                            toggleCompleted={toggleCompleted}
+                        />
+                    ))}
+                </div>
+            </div>
         </div>
     );
 }
