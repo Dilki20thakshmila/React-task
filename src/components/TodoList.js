@@ -57,7 +57,7 @@ function TodoList() {
     return (
         <div className="centered-container">
             <div className="todo-list-container">
-                <h2>My Todo List</h2>
+                <h2>MY TODO LIST</h2>
                 <div className="add-task-container">
                     <input
                         value={text}

@@ -1,4 +1,11 @@
 /* General styles */
+body {
+  background-image: url('images/1.jpg');
+  background-repeat: no-repeat;
+  background-position: right top;
+
+}
+
 .App {
   text-align: center;
 }
